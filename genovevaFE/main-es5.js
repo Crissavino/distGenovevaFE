@@ -560,6 +560,8 @@ var BusquedaComponent = /** @class */ (function () {
         this.cargando = true;
         this.categoriasPrincipales = [];
         this.colores = [];
+        this.contenido = "";
+        this.tituloPag = "";
         if (localStorage.getItem('todosLosProductos')) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
             this.todosLosProductos = todosLosProductosJson;
@@ -600,9 +602,16 @@ var BusquedaComponent = /** @class */ (function () {
                 _this.buscarProducto(_this.termino);
             }, 1000);
         });
+        this.contenido = "Esta es la pagina de busqueda de Genoveva Shop Online, aca podras encontrar y asi poder comprar todos nuestros productos. En la pagina podras ver los productos que encontramos de acuerdo con lo que has buscado";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Resultados de la busqueda";
+        this.productosService.editarTitulo(this.tituloPag);
     };
     BusquedaComponent.prototype.ngOnDestroy = function () {
         this.productosBuscados = [];
+        console.log(this.contenido);
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     BusquedaComponent.prototype.buscarProducto = function (termino) {
         var _this = this;
@@ -841,9 +850,18 @@ __webpack_require__.r(__webpack_exports__);
 var FaqsComponent = /** @class */ (function () {
     function FaqsComponent(productosService) {
         this.productosService = productosService;
+        this.contenido = "";
+        this.tituloPag = "";
     }
     FaqsComponent.prototype.ngOnInit = function () {
-        // this.productosService.cargarScript('../../../assets/template/js/active.js').then((res) => { }).catch(() => { });
+        this.contenido = "Estas son las preguntas frecuentes o faqs que se pueden hacer ustedes como usuarios, creemos que estan todas y bien respondidas. Cualquier otra consulta no duden en contactarnos por nuestras redes sociales";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Preguntas frecuentes";
+        this.productosService.editarTitulo(this.tituloPag);
+    };
+    FaqsComponent.prototype.ngOnDestroy = function () {
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     FaqsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -898,6 +916,8 @@ var HomeComponent = /** @class */ (function () {
         this.cargando = true;
         this.primeraVez = true;
         this.favoritos = [];
+        this.contenido = "";
+        this.tituloPag = "";
         setTimeout(function () {
             _this.productosDestacadosConImagenes = _this.productosService.productosDestacados();
             _this.cargando = false;
@@ -908,9 +928,15 @@ var HomeComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.productosService.cargarScript('assets/js/carousel.js');
         }, 2000);
+        this.contenido = "Genoveva es una marca con mas de 3 anos de antiguedad en el mercado, contamos con mas de 50.000 seguidores en nuestras plataformas de redes sociales, hemos realizado con exito muchisimos showrooms y es por eso que decidimos adentrarnos en el mundo del e-commerce para que todo el mundo pueda ver nuestro productos.";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Bienvenidos";
+        this.productosService.editarTitulo(this.tituloPag);
     };
     HomeComponent.prototype.ngOnDestroy = function () {
         this.productosService.borrarScript('assets/js/carousel.js');
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -951,12 +977,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_productos_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/productos.service */ "./src/app/services/productos.service.ts");
+
 
 
 
 var InicioComponent = /** @class */ (function () {
-    function InicioComponent(router) {
+    function InicioComponent(productosService, router) {
+        this.productosService = productosService;
         this.router = router;
+        this.tituloPag = "";
     }
     InicioComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -970,12 +1000,15 @@ var InicioComponent = /** @class */ (function () {
             // });
             _this.router.navigate(['/home']);
         }, 1500);
+        this.tituloPag = "Bienvenidos";
+        this.productosService.editarTitulo(this.tituloPag);
     };
     InicioComponent.prototype.ngOnDestroy = function () {
         var header = document.querySelector('.header_area');
         var footer = document.querySelector('.footer_area');
         header.classList.remove('d-none');
         footer.classList.remove('d-none');
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     InicioComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -983,7 +1016,7 @@ var InicioComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./inicio.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/home/inicio.component.html"),
             styles: [__webpack_require__(/*! ./inicio.component.css */ "./src/app/components/home/inicio.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_productos_service__WEBPACK_IMPORTED_MODULE_3__["ProductosService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], InicioComponent);
     return InicioComponent;
 }());
@@ -1172,6 +1205,8 @@ var FavoritosComponent = /** @class */ (function () {
         this.productosFavoritos = [];
         this.categoriasPrincipales = [];
         this.colores = [];
+        this.contenido = "";
+        this.tituloPag = "";
         if (localStorage.getItem('todosLosProductos')) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
             this.todosLosProductos = todosLosProductosJson;
@@ -1216,8 +1251,14 @@ var FavoritosComponent = /** @class */ (function () {
         }, 500);
     }
     FavoritosComponent.prototype.ngOnInit = function () {
+        this.contenido = "En la seccion de favoritos vas a poder ver todos los productos que guardaste para despues, ya sea porque te gusta la combinacion o porque queres comprarlo mas adelante.";
+        this.productoService.editarMetaHead(this.contenido);
+        this.tituloPag = "Productos favoritos";
+        this.productoService.editarTitulo(this.tituloPag);
     };
     FavoritosComponent.prototype.ngOnDestroy = function () {
+        this.productoService.reiniciarMetaHead(this.contenido);
+        this.productoService.reiniciarTitulo(this.tituloPag);
     };
     FavoritosComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1276,12 +1317,18 @@ var PerfilComponent = /** @class */ (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.pedidosUsuario = [];
+        this.contenido = "";
+        this.tituloPag = "";
         this.carritoService.getCarritoBD(localStorage.getItem("userId"));
         this.activatedRoute.params.subscribe(function (parametro) {
             _this.registroService
                 .getUsuario(parametro.id)
                 .subscribe(function (usuario) {
                 _this.usuario = usuario;
+                _this.contenido = "Este es tu perfil " + _this.usuario.name + ", aca podras encontrar la informacion sobre las compras que realizaste en Genoveva, el estado del pago, en numero de orden para poder comunicarte con nostros en caso de cualquier problema, los productos que compraste, el total de la compra y el estado del envio";
+                _this.productosService.editarMetaHead(_this.contenido);
+                _this.tituloPag = "Hola " + _this.usuario.name + " este es tu perfil";
+                _this.productosService.editarTitulo(_this.tituloPag);
             });
         });
         var carritoUsuario = this.carritoService.getTablaCarritos(localStorage.getItem("userId"));
@@ -1415,6 +1462,12 @@ var PerfilComponent = /** @class */ (function () {
         else {
             console.error('no esta logueado');
         }
+        // this.contenido = "Este es tu perfil"+this.usuario.name+", aca podras encontrar la informacion sobre las compras que realizaste en Genoveva, el estado del pago, en numero de orden para poder comunicarte con nostros en caso de cualquier problema, los productos que compraste, el total de la compra y el estado del envio";
+        // this.productosService.editarMetaHead(this.contenido);
+        // setTimeout(() => {
+        //   this.tituloPag = "Hola "+this.usuario.name+" este es tu perfil";
+        //   this.productosService.editarTitulo(this.tituloPag);
+        // }, 1000);
     };
     PerfilComponent.prototype.cellHeaders = function (tableId) {
         // try {
@@ -1464,6 +1517,8 @@ var PerfilComponent = /** @class */ (function () {
         });
     };
     PerfilComponent.prototype.ngOnDestroy = function () {
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
         // console.log('sale');
         // this.productosService.borrarScript('assets/template/js/active.js');
     };
@@ -1482,14 +1537,6 @@ var PerfilComponent = /** @class */ (function () {
     return PerfilComponent;
 }());
 
-//  "src/assets/template/js/active.js",
-//    "src/assets/template/js/jquery/jquery-2.2.4.min.js",
-//    "src/assets/template/js/popper.min.js",
-//    "src/assets/template/js/bootstrap.min.js",
-//    "src/assets/template/js/plugins.js",
-//    "src/assets/template/js/classy-nav.min.js",
-//    "src/assets/js/carousel.js",
-//    "src/assets/js/nice-select.js";
 
 
 /***/ }),
@@ -1582,6 +1629,8 @@ var ProductosDescuentoComponent = /** @class */ (function () {
         this.productosDecuento = [];
         this.categoriasPrincipales = [];
         this.colores = [];
+        this.contenido = "";
+        this.tituloPag = "";
         if (localStorage.getItem('todosLosProductos')) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
             this.todosLosProductos = todosLosProductosJson;
@@ -1620,7 +1669,16 @@ var ProductosDescuentoComponent = /** @class */ (function () {
             _this.cargando = false;
         }, 500);
     }
-    ProductosDescuentoComponent.prototype.ngOnInit = function () { };
+    ProductosDescuentoComponent.prototype.ngOnInit = function () {
+        this.contenido = "Estos son todos los productos de nuestro stock que tienen descuento, apurate, nunca duran mucho tiempo!";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Grandes descuentos";
+        this.productosService.editarTitulo(this.tituloPag);
+    };
+    ProductosDescuentoComponent.prototype.ngOnDestroy = function () {
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
+    };
     ProductosDescuentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-productos-descuento',
@@ -1683,6 +1741,8 @@ var LoginComponent = /** @class */ (function () {
         this.activatedRoute = activatedRoute;
         this.usuario = new src_app_models_usuario_models__WEBPACK_IMPORTED_MODULE_3__["UsuarioModel"]();
         this.logueadoLogin = false;
+        this.contenido = "";
+        this.tituloPag = "";
         this.recordarme = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
@@ -1698,12 +1758,18 @@ var LoginComponent = /** @class */ (function () {
             this.usuario.email = localStorage.getItem('email');
             this.recordarme = true;
         }
+        this.contenido = "Aca es donde vas a poder loguearte para poder comprar en genoveva shop online, recorda que es necesario que tengas un usuario para poder comprar y guardar en favoritos todos los productos que desees";
+        this.productoService.editarMetaHead(this.contenido);
+        this.tituloPag = "Logueate";
+        this.productoService.editarTitulo(this.tituloPag);
     };
     LoginComponent.prototype.ngOnDestroy = function () {
         this.productoService.borrarEstilos('assets/registro/css/util.css');
         this.productoService.borrarEstilos('assets/registro/css/main.css');
         this.productoService.borrarEstilos('assets/registro/fonts/font-awesome-4.7.0/css/font-awesome.min.css');
         this.productoService.borrarEstilos('assets/registro/css/animate.css');
+        this.productoService.reiniciarMetaHead(this.contenido);
+        this.productoService.reiniciarTitulo(this.tituloPag);
     };
     LoginComponent.prototype.login = function (formRegistro) {
         var _this = this;
@@ -1799,6 +1865,8 @@ var RegistroComponent = /** @class */ (function () {
         this.router = router;
         this.usuario = new src_app_models_usuario_models__WEBPACK_IMPORTED_MODULE_4__["UsuarioModel"]();
         this.recordarme = false;
+        this.contenido = "";
+        this.tituloPag = "";
         this.noCoinciden = false;
     }
     RegistroComponent.prototype.ngOnInit = function () {
@@ -1814,12 +1882,18 @@ var RegistroComponent = /** @class */ (function () {
             this.usuario.email = localStorage.getItem('email');
             this.recordarme = true;
         }
+        this.contenido = "Aca es donde vas a poder registrarte para poder comprar en genoveva shop online, recorda que es necesario que tengas un usuario para poder comprar y guardar en favoritos todos los productos que desees";
+        this.productoService.editarMetaHead(this.contenido);
+        this.tituloPag = "Registrate";
+        this.productoService.editarTitulo(this.tituloPag);
     };
     RegistroComponent.prototype.ngOnDestroy = function () {
         this.productoService.borrarEstilos('assets/registro/css/util.css');
         this.productoService.borrarEstilos('assets/registro/css/main.css');
         this.productoService.borrarEstilos('assets/registro/fonts/font-awesome-4.7.0/css/font-awesome.min.css');
         this.productoService.borrarEstilos('assets/registro/css/animate.css');
+        this.productoService.reiniciarMetaHead(this.contenido);
+        this.productoService.reiniciarTitulo(this.tituloPag);
     };
     RegistroComponent.prototype.onSubmit = function (formRegistro) {
         var _this = this;
@@ -2430,14 +2504,12 @@ var CheckoutComponent = /** @class */ (function () {
         this.checkoutService = checkoutService;
         this.http = http;
         this.router = router;
-        // usuario: UsuarioModel;
         this.checkout = {
             name: '',
             lastname: '',
             pais_id: '',
             calle: '',
             numero: 0,
-            // direccion2: '',
             cp: '',
             provincia: '',
             ciudad: '',
@@ -2448,13 +2520,6 @@ var CheckoutComponent = /** @class */ (function () {
             prods: []
         };
         this.datosMP = {
-            // tarjeta: Number,
-            // codSeg: Number,
-            // mesV: Number,
-            // anoV: Number,
-            // nombreCompleto: String,
-            // tipoDoc: String,
-            // numDoc: Number
             total: 0,
             token: '',
             description: '',
@@ -2475,13 +2540,14 @@ var CheckoutComponent = /** @class */ (function () {
             laplata: 40
         };
         this.oculto = false;
+        this.contenido = "";
+        this.tituloPag = "";
         this.tipoDocumentos = [];
         this.cargandoInfoMP = true;
         this.opcionDoc = '';
         this.tarjetasCreditoDisponibles = [];
         this.cuotasDisponibles = [];
         this.esPagoConCredito = false;
-        // esPagoConCredito = true;
         this.tarjetasDebitoDisponibles = [];
         this.esPagoConDebito = false;
         this.pagoEnEfectivo = [];
@@ -3395,8 +3461,15 @@ var CheckoutComponent = /** @class */ (function () {
             this.router.navigate(['/shop']);
         }
         // fin
+        this.contenido = "En esta seccion vas a poder hacer el checkout de tu compra, es decir, vas a poder decirnos a donde queres que enviemos lo que compraste y elegir alguno de los medios de pago que nos proporciona Mercado Libre a traves de Mercado Pago. Recorda que si estas dentro del casco urbano de La Plata el envio es mas barato. Cualquier duda que tengas en esta parte consulta la seccion de preguntas frecuentes. Gracias por comprar en Genoveva Shop Online";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Finalizar compra";
+        this.productosService.editarTitulo(this.tituloPag);
     };
-    CheckoutComponent.prototype.ngOnDestroy = function () { };
+    CheckoutComponent.prototype.ngOnDestroy = function () {
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
+    };
     CheckoutComponent.prototype.ngDoCheck = function () {
         var _this = this;
         var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
@@ -3501,6 +3574,8 @@ var ProductoDetalleComponent = /** @class */ (function () {
         this.cargando = true;
         this.esFavorito = false;
         this.productosFavoritos = [];
+        this.contenido = "";
+        this.tituloPag = "";
         if (localStorage.getItem('todosLosProductos')) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
             this.todosLosProductos = todosLosProductosJson;
@@ -3575,10 +3650,17 @@ var ProductoDetalleComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.productosService.cargarScript('assets/js/nice-select.js');
         }, 1500);
+        console.log(this.productoConImagen);
+        this.contenido = "Estas viendo " + this.productoConImagen["titulo"] + " su descripcion es " + this.productoConImagen["descripcion"] + " y tiene un precio de $" + this.productoConImagen["precio"] + " recorda elegir el talle y listo! Ya pasamos al checkout para poder elegir el envio y la forma de pago.";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "" + this.productoConImagen["titulo"];
+        this.productosService.editarTitulo(this.tituloPag);
     };
     ProductoDetalleComponent.prototype.ngOnDestroy = function () {
         this.productosService.borrarScript('assets/js/carousel.js');
         this.productosService.borrarScript('assets/js/nice-select.js');
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     ProductoDetalleComponent.prototype.onSubmit = function (id, talle) {
         var _this = this;
@@ -3913,6 +3995,8 @@ var ShopComponent = /** @class */ (function () {
         this.ordenadoNuevo = false;
         this.ordenadoMayor = false;
         this.ordenadoMenor = false;
+        this.contenido = '';
+        this.tituloPag = '';
         if (localStorage.getItem('todosLosProductos')) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem('todosLosProductos'));
             this.productosBD = todosLosProductosJson;
@@ -3948,6 +4032,14 @@ var ShopComponent = /** @class */ (function () {
         }
     }
     ShopComponent.prototype.ngOnInit = function () {
+        this.contenido = "En esta seccion podras encontrar todos los productos que tenemos, filtar por color, por categoria, ordenar por precio y por el mas nuevo. Hoy en dia contamos con " + this.productosBD.length + " productos en nuestro stock, pero siempre estamos trabajando para tener mas";
+        this.productosService.editarMetaHead(this.contenido);
+        this.tituloPag = "Galeria de productos";
+        this.productosService.editarTitulo(this.tituloPag);
+    };
+    ShopComponent.prototype.ngOnDestroy = function () {
+        this.productosService.reiniciarMetaHead(this.contenido);
+        this.productosService.reiniciarTitulo(this.tituloPag);
     };
     ShopComponent.prototype.cambiarCategoria = function (categoriaId) {
         var _this = this;
@@ -4795,6 +4887,14 @@ var ProductosService = /** @class */ (function () {
             }
         }
     }
+    ProductosService.prototype.editarTitulo = function (titulo) {
+        var titleElement = document.getElementsByTagName('title');
+        titleElement[0].innerText += titulo;
+    };
+    ProductosService.prototype.reiniciarTitulo = function (titulo) {
+        var titleElement = document.getElementsByTagName('title');
+        titleElement[0].innerText = titleElement[0].innerText.replace(titulo, '');
+    };
     ProductosService.prototype.productosDestacados = function () {
         if (localStorage.getItem("todosLosProductos")) {
             var todosLosProductosJson = JSON.parse(localStorage.getItem("todosLosProductos"));
@@ -4907,6 +5007,12 @@ var ProductosService = /** @class */ (function () {
             document.head.insertBefore(scriptElement, ultimo);
         });
     };
+    ProductosService.prototype.editarMetaHead = function (contenido) {
+        return new Promise(function (resolve) {
+            var metaElement = document.querySelector("[name^=Description]");
+            metaElement.content += contenido;
+        });
+    };
     ProductosService.prototype.borrarScript = function (scriptUrl) {
         var url = "http://localhost:4200/";
         var arreglo = document.body.getElementsByTagName("script");
@@ -4930,6 +5036,10 @@ var ProductosService = /** @class */ (function () {
                 }
             }
         }
+    };
+    ProductosService.prototype.reiniciarMetaHead = function (contenido) {
+        var metaElement = document.querySelector("[name^=Description]");
+        metaElement.content = metaElement.content.replace(contenido, '');
     };
     ProductosService.prototype.cargarEstilos = function (styleUrl) {
         return new Promise(function (resolve, reject) {
