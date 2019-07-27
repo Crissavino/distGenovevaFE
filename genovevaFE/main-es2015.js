@@ -2494,7 +2494,7 @@ let CheckoutComponent = class CheckoutComponent {
         this.envio = {
             costo: 0,
             entrega: '',
-            laplata: 40
+            laplata: 50
         };
         this.oculto = false;
         this.contenido = "";
@@ -3420,6 +3420,14 @@ let CheckoutComponent = class CheckoutComponent {
         this.productosService.editarMetaHead(this.contenido);
         this.tituloPag = "Finalizar compra";
         this.productosService.editarTitulo(this.tituloPag);
+        let todoElCarro = document.querySelector('.right-side-cart-area');
+        let botonBolsa = document.querySelector('#rightSideCart');
+        if (todoElCarro.classList.value.includes('cart-on')) {
+            botonBolsa.click();
+        }
+        else {
+            console.log('no esta abierta');
+        }
     }
     ngOnDestroy() {
         this.productosService.reiniciarMetaHead(this.contenido);

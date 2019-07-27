@@ -2537,7 +2537,7 @@ var CheckoutComponent = /** @class */ (function () {
         this.envio = {
             costo: 0,
             entrega: '',
-            laplata: 40
+            laplata: 50
         };
         this.oculto = false;
         this.contenido = "";
@@ -3465,6 +3465,14 @@ var CheckoutComponent = /** @class */ (function () {
         this.productosService.editarMetaHead(this.contenido);
         this.tituloPag = "Finalizar compra";
         this.productosService.editarTitulo(this.tituloPag);
+        var todoElCarro = document.querySelector('.right-side-cart-area');
+        var botonBolsa = document.querySelector('#rightSideCart');
+        if (todoElCarro.classList.value.includes('cart-on')) {
+            botonBolsa.click();
+        }
+        else {
+            console.log('no esta abierta');
+        }
     };
     CheckoutComponent.prototype.ngOnDestroy = function () {
         this.productosService.reiniciarMetaHead(this.contenido);
